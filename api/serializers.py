@@ -1,10 +1,7 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from . import models, services, repos
-
-auth_repos = repos.AuthRepos()
-profile_repos = repos.ProfileRepos()
+from . import models, services
 
 sms_services = services.SMSServices()
 
