@@ -72,9 +72,4 @@ class VerifyCodeSerializer(serializers.Serializer):
             user.is_verified = True
             user.save()
 
-            # save phone_number
-            profile = models.Profile.objects.get(user_id=user_id)
-            profile.phone_number = phone_number
-            profile.save()
-
         return {'code': actual_code}
