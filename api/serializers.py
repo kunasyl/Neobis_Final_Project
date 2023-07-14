@@ -60,10 +60,11 @@ class LoginSerializer(serializers.ModelSerializer):
 
 class VerifyCodeSerializer(serializers.Serializer):
     code = serializers.CharField(max_length=4)
+    user_id = serializers.IntegerField()
 
     def create(self, validated_data):
         phone_number = self.context.get('phone_number')
-        user_id = self.context.get('user_id')
+        user_id = validated_data.get('user_id')
         actual_code = models.PhoneVerification.objects.get(phone_number=phone_number).code
         if validated_data.get('code') == actual_code:
             # verify user

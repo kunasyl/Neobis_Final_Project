@@ -59,8 +59,7 @@ class PhoneNumberVerificationView(APIView):
     @action(detail=False, methods=['POST'])
     def post(self, request, phone_number):
         context = {
-            'phone_number': phone_number,
-            'user_id': request.user.id
+            'phone_number': phone_number
         }
         serializer = serializers.VerifyCodeSerializer(data=request.data, context=context)
         if serializer.is_valid():
