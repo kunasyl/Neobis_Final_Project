@@ -14,14 +14,13 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
-from . import serializers, services, repos, permissions, models
+from . import serializers, services, models
 from users.tokens import account_activation_token
 
 auth_services = services.AuthServices()
 
 
 class RegisterView(APIView):
-    repos = repos.AuthRepos()
 
     @swagger_auto_schema(method='POST', request_body=serializers.CreateUserSerializer())
     @action(detail=False, methods=['POST'])
@@ -40,7 +39,6 @@ class LoginView(APIView):
     Send SMS to phone number for login.
     """
     user_model = models.User
-    repos = repos.ProfileRepos()
 
     @swagger_auto_schema(method='POST', request_body=serializers.LoginSerializer())
     @action(detail=False, methods=['POST'])
@@ -58,7 +56,6 @@ class PhoneNumberVerificationView(APIView):
     """
     Check verification code sent to phone number
     """
-    permission_classes = [permissions.IsAuthorizedPermission]
 
     @swagger_auto_schema(method='POST', request_body=serializers.VerifyCodeSerializer())
     @action(detail=False, methods=['POST'])
