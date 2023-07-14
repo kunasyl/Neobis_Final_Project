@@ -10,7 +10,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.User
-        fields = '__all__'
+        fields = ('first_name', 'last_name', 'birth_date', 'phone_number',)
 
 
 class VerifyCodeSerializer(serializers.Serializer):

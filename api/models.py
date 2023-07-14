@@ -10,31 +10,31 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 class UserManager(BaseUserManager):
 
-    def create_user(self, name, phone):
+    def create_user(self, first_name, phone):
         """
         Создает и возвращает пользователя.
         """
-        if name is None:
+        if first_name is None:
             raise TypeError('Users must have a name.')
         if phone is None:
             raise TypeError('Users must have a phone.')
 
         # user = self.model(username=username, email=self.normalize_email(email))
-        user = self.model(name=name, phone=phone)
+        user = self.model(first_name=first_name, phone=phone)
         user.save()
 
         return user
 
-    def create_superuser(self, name, phone):
+    def create_superuser(self, first_name, phone):
         """
         Создает и возвращет пользователя с привилегиями суперадмина.
         """
         if phone is None:
             raise TypeError('Superusers must have a password.')
-        if name is None:
+        if first_name is None:
             raise TypeError('Superusers must have a name.')
 
-        user = self.create_user(name, phone)
+        user = self.create_user(first_name, phone)
         user.is_superuser = True
         user.is_staff = True
         user.save()
@@ -43,8 +43,8 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    first_name = models.CharField(max_length=255, verbose_name=_('Имя'))
-    last_name = models.CharField(max_length=255, verbose_name=_('Фамилия'))
+    first_name = models.CharField(unique=True, max_length=255, verbose_name=_('Имя'))
+    last_name = models.CharField(null=True, blank=True, max_length=255, verbose_name=_('Фамилия'))
     birth_date = models.DateField(verbose_name=_('День рождения'))
     phone_number = PhoneNumberField(null=True, blank=True, unique=True, verbose_name=_('Номер телефона'))
 
@@ -55,7 +55,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    USERNAME_FIELD = 'name'
+    USERNAME_FIELD = 'first_name'
 
     objects = UserManager()
 

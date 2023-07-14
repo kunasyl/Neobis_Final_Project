@@ -17,6 +17,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = ['68.183.79.205']
+# ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -28,6 +29,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
+    'rest_framework_swagger',
+    'django_cleanup.apps.CleanupConfig',
+    'drf_yasg',
+    'corsheaders',
+    'phonenumber_field',
 
     'api'
 ]
@@ -76,6 +84,12 @@ DATABASES = {
         'PORT': config('DB_PORT'),
     }
 }
+# DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': BASE_DIR / 'db.sqlite3',
+#         }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

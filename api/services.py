@@ -14,7 +14,6 @@ from django.conf import settings
 import random
 import string
 
-from users.tokens import account_activation_token
 
 from . import models
 

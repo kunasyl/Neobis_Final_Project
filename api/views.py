@@ -15,9 +15,7 @@ from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
 from . import serializers, services, models
-from users.tokens import account_activation_token
 
-auth_services = services.AuthServices()
 
 
 class RegisterView(APIView):
